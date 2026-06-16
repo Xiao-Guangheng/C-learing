@@ -1,14 +1,30 @@
 {
     "tasks": [
         {
+            "label": "Create Configured Build Dir",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "if not exist \"${workspaceFolder}\\build\" mkdir \"${workspaceFolder}\\build\""
+            ],
+            "presentation": {
+                "reveal": "silent"
+            }
+        },
+        {
             "type": "cppbuild",
             "label": "C/C++: cl.exe build active file",
+            "dependsOn": "Create Configured Build Dir",
             "command": "cl.exe",
             "args": [
                 "/Zi",
                 "/EHsc",
                 "/nologo",
-                "/Fe${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "/utf-8",
+                "/Fo${workspaceFolder}\\build\\",
+                "/Fd${workspaceFolder}\\build\\",
+                "/Fe${workspaceFolder}\\build\\${fileBasenameNoExtension}.exe",
                 "${file}"
             ],
             "options": {
