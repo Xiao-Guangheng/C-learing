@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+
+template <typename T>
+class Queue {
+private:
+    T* data;
+    int capacity;
+    int front;
+    int rear;
+public:
+    Queue(int cap = 100) : capacity(cap), front(0), rear(0) {
+        data = new T[capacity];
+    }
+    ~Queue() { delete[] data; }
+    bool enqueue(T x) {
+        if ((rear + 1) % capacity == front) return false;
+        data[rear] = x;
+        rear = (rear + 1) % capacity;
+        return true;
+    }
+    bool dequeue(T& x) {
+        if (front == rear) return false;
+        x = data[front];
+        front = (front + 1) % capacity;
+        return true;
+    }
+    bool getFront(T& x) {
+        if (front == rear) return false;
+        x = data[front];
+        return true;
+    }
+    bool isEmpty() const { return front == rear; }
+    bool isFull() const { return (rear + 1) % capacity == front; }
+    void clear() { front = rear = 0; }
+};
+
+int main() {
+    Queue<int> q;
+    cout << "入队 1, 2, 3, 4, 5" << endl;
+    for (int i = 1; i <= 5; i++) q.enqueue(i);
+    cout << "出队顺序：";
+    int val;
+    while (!q.isEmpty()) {
+        q.dequeue(val);
+        cout << val << " ";
+    }
+    cout << endl;
+    return 0;
+}

@@ -1,0 +1,65 @@
+#include <iostream>
+using namespace std;
+
+template <typename T>
+void bubbleSort(T arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - 1 - i; j++) {
+            if (arr[j] > arr[j + 1]) {
+                T temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+template <typename T>
+class DynArray {
+private:
+    T* data;
+    int num;
+public:
+    DynArray(int n = 0) : num(n) {
+        data = (n > 0) ? new T[n] : nullptr;
+    }
+    DynArray(const DynArray& other) : num(other.num) {
+        data = new T[num];
+        for (int i = 0; i < num; i++) data[i] = other.data[i];
+    }
+    ~DynArray() { delete[] data; }
+    DynArray& operator=(const DynArray& other) {
+        if (this != &other) {
+            delete[] data;
+            num = other.num;
+            data = new T[num];
+            for (int i = 0; i < num; i++) data[i] = other.data[i];
+        }
+        return *this;
+    }
+    T& operator[](int index) { return data[index]; }
+    const T& operator[](int index) const { return data[index]; }
+    operator T* () { return data; }
+    int size() const { return num; }
+    void resize(int newNum) {
+        T* newData = new T[newNum];
+        int copyNum = (newNum < num) ? newNum : num;
+        for (int i = 0; i < copyNum; i++) newData[i] = data[i];
+        delete[] data;
+        data = newData;
+        num = newNum;
+    }
+};
+
+int main() {
+    DynArray<int> arr(10);
+    cout << "请输入10个整数：" << endl;
+    for (int i = 0; i < 10; i++) cin >> arr[i];
+
+    bubbleSort((int*)arr, arr.size());
+
+    for (int i = 0; i < arr.size(); i++) cout << arr[i] << " ";
+    cout << endl;
+
+    return 0;
+}

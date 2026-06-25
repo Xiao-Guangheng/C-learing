@@ -1,0 +1,57 @@
+#include <iostream>
+using namespace std;
+
+template <typename T>
+class SeqStack {
+private:
+    T* data;
+    int capacity;
+    int top;
+public:
+    SeqStack(int cap = 100) : capacity(cap), top(-1) {
+        data = new T[capacity];
+    }
+    ~SeqStack() { delete[] data; }
+    bool push(T x) {
+        if (top == capacity - 1) return false;
+        data[++top] = x;
+        return true;
+    }
+    bool pop(T& x) {
+        if (top == -1) return false;
+        x = data[top--];
+        return true;
+    }
+    bool getTop(T& x) {
+        if (top == -1) return false;
+        x = data[top];
+        return true;
+    }
+    bool isEmpty() const { return top == -1; }
+    bool isFull() const { return top == capacity - 1; }
+    void clear() { top = -1; }
+};
+
+int main() {
+    int n;
+    cout << "请输入一个十进制整数：";
+    cin >> n;
+    if (n == 0) {
+        cout << "二进制：0" << endl;
+        return 0;
+    }
+    SeqStack<int> s;
+    int temp = n;
+    while (temp != 0) {
+        s.push(temp % 2);
+        temp /= 2;
+    }
+    cout << "二进制：";
+    int bit;
+    while (!s.isEmpty()) {
+        s.pop(bit);
+        cout << bit;
+    }
+    cout << endl;
+    return 0;
+}

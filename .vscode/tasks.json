@@ -25,7 +25,7 @@
                 "/Fo${workspaceFolder}\\build\\",
                 "/Fd${workspaceFolder}\\build\\",
                 "/Fe${workspaceFolder}\\build\\${fileBasenameNoExtension}.exe",
-                "${file}"
+                "${fileDirname}\\*.cpp"
             ],
             "options": {
                 "cwd": "${fileDirname}"

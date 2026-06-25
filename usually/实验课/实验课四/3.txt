@@ -1,0 +1,35 @@
+#include <iostream>
+using namespace std;
+
+template <typename T>
+class Circle {
+private:
+    T radius;
+public:
+    Circle(T r = 0) : radius(r) {}
+    void setRadius(T r) { radius = r; }
+    T getRadius() const { return radius; }
+    double area() const { return 3.14159 * radius * radius; }
+    double perimeter() const { return 2 * 3.14159 * radius; }
+    bool operator>(const Circle& other) const {
+        return this->area() > other.area();
+    }
+};
+
+int main() {
+    double r1, r2;
+    cout << "输入第一个圆的半径：";
+    cin >> r1;
+    cout << "输入第二个圆的半径：";
+    cin >> r2;
+
+    Circle<double> c1(r1), c2(r2);
+    cout << "圆1周长：" << c1.perimeter() << "，面积：" << c1.area() << endl;
+    cout << "圆2周长：" << c2.perimeter() << "，面积：" << c2.area() << endl;
+
+    if (c1 > c2) cout << "圆1面积更大" << endl;
+    else if (c2 > c1) cout << "圆2面积更大" << endl;
+    else cout << "面积相等" << endl;
+
+    return 0;
+}
