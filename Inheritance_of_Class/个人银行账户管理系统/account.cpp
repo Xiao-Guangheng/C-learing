@@ -4,13 +4,13 @@
 
 using namespace std;
 
-double SavingAccount::total = 0;
+double SavingAccount::total = 0;  //静态数据成员的初始化
 
 SavingAccount::SavingAccount(const Date &date, const std::string &id, double rate)
     : id(id), balance(0), rate(rate), lastDate(date), acc(date, 0) {
     date.show();
     cout << "\t#" << id << " created" << endl;
-}
+}  //
 
 void SavingAccount::record(const Date &date, double amount, const std::string &desc) {
     amount = floor(amount * 100 + 0.5) / 100;
